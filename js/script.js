@@ -16,3 +16,27 @@ const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 // Test word
 const word = "magnolia";
+
+// Covers letters of the word with placeholder symbols
+const placeHolder = function (word) {
+  // Holds a placeholder for each letter iterated
+  const placeHolderLetters = [];
+  //   iterates through each letter of the word variable
+  for (const letter of word) {
+    // Adds a placeHolder for each letter iterated
+    placeHolderLetters.push("●");
+  }
+  //   Changes the text of the paragraph to the string version of the placeHolderLetters array
+  wordInProgress.innerText = placeHolderLetters.join("");
+};
+placeHolder(word);
+
+// Click event for when a player inputs a value into the input box
+guessLetterButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  //   The guess variable holds the value of the letter that was input
+  const guess = letterInput.value;
+  console.log(guess);
+  //   clears the input box value for the next guess
+  letterInput.value = "";
+});
