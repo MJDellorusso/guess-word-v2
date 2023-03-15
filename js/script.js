@@ -68,7 +68,8 @@ const makeGuess = function (guess) {
   guess = guess.toUpperCase();
   if (guessedLetters.includes(guess)) {
     message.innerText = `You already guessed that letter fool! Guess again.`;
-  } else if (!guessedLetters.includes(guess)) {
+  } else {
     guessedLetters.push(guess);
+    console.log(guessedLetters);
   }
 };
