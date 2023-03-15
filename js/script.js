@@ -80,6 +80,50 @@ const makeGuess = function (guess) {
     // It is not so add it to the array
   } else {
     guessedLetters.push(guess);
+    showGuessedLetters(guess);
+    updateWordInProgress(guessedLetters);
     console.log(guessedLetters);
+  }
+};
+// A function to show the user the letters they guessed
+const showGuessedLetters = function (letter) {
+  // Clears the UL for a new game
+  guessedLettersElement.innerHTML = "";
+  //   Iterates through each letter pushed to the guessedLetters array
+  for (const letter of guessedLetters) {
+    // Creates a li, adds the text, appends the li to the ul to display the letter
+    const listItem = document.createElement("li");
+    listItem.innerText = letter;
+    guessedLettersElement.append(listItem);
+  }
+};
+// A function to reveal correctly guessed letters in the wordInProgress paragraph
+const updateWordInProgress = function (guessedLetters) {
+  // declaring a variable that holds the value of the word varaible but in uppercase
+  const wordUpper = word.toUpperCase();
+  // Splitting the letters into individual array elements so they can be iterated
+  const wordArray = wordUpper.split("");
+  //   Array to hold revealed letters and placeholders
+  const revealWord = [];
+  //   Iterating through each letter of word Array
+  //   If the letter is present in the guesedLetters array as well as the word..
+  for (const letter of wordArray)
+    if (guessedLetters.includes(letter)) {
+      // the letter is pushed to the reveal word array
+      revealWord.push(letter.toUpperCase());
+    } else {
+      // Every letter not present in both arrays a placeholder is pushed
+      revealWord.push("●");
+    }
+  // The wordInProgress text is changed to the string version of the revealWord array. Containing letters and placeholders.
+  wordInProgress.innerText = revealWord.join("");
+  checkWin();
+};
+
+// A function to see if the text of the wordInProgress paragraph matches the word variable in upperCase
+const checkWin = function () {
+  if (wordInProgress.innerText === word.toUpperCase()) {
+    message.classList.add("win");
+    message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
   }
 };
