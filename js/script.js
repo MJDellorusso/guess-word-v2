@@ -17,7 +17,7 @@ const playAgainButton = document.querySelector(".play-again");
 // Placeholder word
 let word = "magnolia";
 // Array to hold guessed letters
-const guessedLetters = [];
+let guessedLetters = [];
 // Changing variable, that holds the number of guesses
 let remainingGuesses = 8;
 // Fetch the text file holding all the words
