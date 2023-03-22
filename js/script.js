@@ -25,7 +25,7 @@ const getWord = async function () {
   const wordRes = await fetch(
     "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
   );
-  // convert to as text file
+  // convert to a text file
   const wordData = await wordRes.text();
   console.log(wordData);
   // convert words into elements in an array and seperate them with a delimiter
@@ -71,7 +71,7 @@ guessLetterButton.addEventListener("click", function (e) {
   //   clears the input box value for the next guess
   letterInput.value = "";
 });
-// A function to validate the the input, aka guess is a single letter
+// A function to validate the input, aka guess is a single letter
 const InputValidator = function (input) {
   // regular expression looking for letters a-z
   const acceptedLetter = /[a-zA-Z]/;
@@ -84,7 +84,7 @@ const InputValidator = function (input) {
     // Was the guess something other than a letter a-z?
   } else if (!input.match(acceptedLetter)) {
     message.innerText = `Please enter a letter from A-Z.`;
-    // Yay the guess is a sinlge letter make it availble to the rest of the code.
+    // Yay the guess is a single letter make it availble to the rest of the code.
   } else {
     return input;
   }
@@ -96,11 +96,14 @@ const makeGuess = function (guess) {
   //   Is the letter already in the array?
   if (guessedLetters.includes(guess)) {
     message.innerText = `You already guessed that letter fool! Guess again.`;
-    // It is not so add it to the array
+    // It is not, so add it to the array
   } else {
     guessedLetters.push(guess);
+    // Populates the guess in the ul to show the user
     showGuessedLetters(guess);
+    // Subtracts a guess from the remaining guesses span
     guessCounter(guess);
+    // Reveals correct guesses in the wordInProgress <p>
     updateWordInProgress(guessedLetters);
   }
 };
@@ -141,7 +144,7 @@ const updateWordInProgress = function (guessedLetters) {
 
 // A function to subtract a guess from the payers total when it is incorrect and return a message to the player.
 const guessCounter = function (guess) {
-  // Change the word to uppercase because js is case sensitive guess is also uppercase
+  // Change the word to uppercase because js is case sensitive, guess is also uppercase
   const wordUpper = word.toUpperCase();
   // If the word includes the letter guessed...
   if (wordUpper.includes(guess)) {
@@ -165,16 +168,21 @@ const guessCounter = function (guess) {
 // A function to see if the text of the wordInProgress paragraph matches the word variable in upperCase
 const checkWin = function () {
   if (wordInProgress.innerText === word.toUpperCase()) {
+    // Adding the win class to the message <p>
     message.classList.add("win");
-    message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>`;
+    // Editing the HTML by adding the <p> w/ the highlight class
+    message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+    // Resets the UI to the original elements
     startOver();
   }
 };
-
+// A function to end the game, and prompt the play to play again.
 const startOver = function () {
+  // Removes elements of the game required to play
   guessLetterButton.classList.add("hide");
   remainingGuessesElement.classList.add("hide");
   guessedLettersElement.classList.add("hide");
+  // Adds the elements to reset the game
   playAgainButton.classList.remove("hide");
 };
 
